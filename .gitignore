@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+
+# --- Next.js (web/) ---
+web/node_modules/
+web/.next/
+web/out/
+web/build/
+web/.vercel
+web/*.tsbuildinfo
+
+# Secrets — never commit
+web/.env
+web/.env.local
+web/.env.development.local
+web/.env.production.local
+web/.env.test.local
+
+# --- Foundry (contracts/) ---
+contracts/cache/
+contracts/out/
