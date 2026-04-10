@@ -1,13 +1,28 @@
 "use client";
 
 import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function ConnectWallet() {
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { connectors, connect, isPending, error } = useConnect();
   const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: MouseEvent | TouchEvent) => {
+      const el = rootRef.current;
+      if (!el?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
+    };
+  }, [open]);
 
   if (isConnected && address) {
     return (
@@ -27,9 +42,11 @@ export function ConnectWallet() {
   }
 
   return (
-    <div className="relative">
+    <div ref={rootRef} className="relative z-[100]">
       <button
         type="button"
+        aria-expanded={open}
+        aria-haspopup="dialog"
         onClick={() => setOpen((o) => !o)}
         className="rounded-lg border-2 border-[#00fff7] bg-gradient-to-r from-[#0a1628] to-[#1a0a28] px-5 py-2.5 text-sm font-bold uppercase tracking-[0.2em] text-[#00fff7] shadow-[0_0_20px_rgba(0,255,247,0.35)] transition hover:shadow-[0_0_28px_rgba(0,255,247,0.55)]"
       >
@@ -37,7 +54,7 @@ export function ConnectWallet() {
       </button>
       {open && (
         <div
-          className="absolute right-0 z-40 mt-2 min-w-[240px] rounded-xl border border-[#bf00ff]/40 bg-[#070010]/95 p-2 shadow-[0_0_24px_rgba(191,0,255,0.25)] backdrop-blur-md"
+          className="absolute left-0 right-0 top-full z-[110] mt-2 min-w-[min(100%,260px)] rounded-xl border border-[#bf00ff]/40 bg-[#070010]/95 p-2 shadow-[0_0_24px_rgba(191,0,255,0.25)] backdrop-blur-md sm:left-auto sm:right-0 sm:min-w-[260px]"
           role="dialog"
           aria-label="Wallet options"
         >

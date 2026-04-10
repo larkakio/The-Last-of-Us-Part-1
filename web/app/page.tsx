@@ -25,9 +25,16 @@ export default function Home() {
       className="mx-auto flex w-full max-w-lg flex-1 flex-col gap-8 px-4 pb-16 pt-8 sm:pt-12"
       data-unlock-version={progress}
     >
-      <header className="relative overflow-hidden rounded-2xl border border-[#00fff7]/25 bg-gradient-to-br from-[#060818]/95 via-[#100818]/95 to-[#080620]/95 p-6 shadow-[0_0_40px_rgba(0,255,247,0.12)]">
-        <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#ff00aa]/20 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-10 -left-10 h-36 w-36 rounded-full bg-[#00fff7]/15 blur-3xl" />
+      <header className="relative z-20 isolate rounded-2xl border border-[#00fff7]/25 bg-gradient-to-br from-[#060818]/95 via-[#100818]/95 to-[#080620]/95 p-6 shadow-[0_0_40px_rgba(0,255,247,0.12)]">
+        {/* Clip glows only — not the wallet dropdown (was overflow-hidden on header). */}
+        <div
+          className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl"
+          aria-hidden
+        >
+          <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#ff00aa]/20 blur-3xl" />
+          <div className="absolute -bottom-10 -left-10 h-36 w-36 rounded-full bg-[#00fff7]/15 blur-3xl" />
+        </div>
+        <div className="relative z-10">
         <p className="mb-1 font-display text-[10px] uppercase tracking-[0.5em] text-[#00fff7]/80">
           Base · Neon Wasteland
         </p>
@@ -46,9 +53,10 @@ export default function Home() {
             </span>
           )}
         </div>
+        </div>
       </header>
 
-      <section className="rounded-2xl border border-[#bf00ff]/20 bg-[#040208]/60 p-4 backdrop-blur-sm">
+      <section className="relative z-0 rounded-2xl border border-[#bf00ff]/20 bg-[#040208]/60 p-4 backdrop-blur-sm">
         <GameBoard
           key={levelId}
           levelId={levelId}
