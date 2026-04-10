@@ -16,15 +16,19 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
 });
 
-const baseAppId = process.env.NEXT_PUBLIC_BASE_APP_ID;
+const DEFAULT_SITE_URL = "https://the-last-of-us-part-1.vercel.app";
+const DEFAULT_BASE_APP_ID = "69d8bb3634c69936dc95d6e0";
+
+const baseAppId =
+  process.env.NEXT_PUBLIC_BASE_APP_ID ?? DEFAULT_BASE_APP_ID;
 
 export const metadata: Metadata = {
   title: "Neon Wasteland: Outskirts",
   description:
     "Cyberpunk grid survival — swipe to escape the spores. Daily check-in on Base.",
-  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
-    ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-    : undefined,
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL,
+  ),
   icons: {
     icon: "/app-icon.jpg",
     apple: "/app-icon.jpg",
@@ -34,13 +38,9 @@ export const metadata: Metadata = {
     description: "Swipe-grid survival on Base. Connect. Survive. Check in.",
     images: ["/app-thumbnail.jpg"],
   },
-  ...(baseAppId
-    ? {
-        other: {
-          "base:app_id": baseAppId,
-        },
-      }
-    : {}),
+  other: {
+    "base:app_id": baseAppId,
+  },
 };
 
 export const viewport: Viewport = {

@@ -17,7 +17,9 @@ cd contracts && forge test
 
 ## Environment
 
-Copy [`web/.env.example`](web/.env.example) to `web/.env.local` and fill in Base.dev app id and builder code. The deployed **DailyCheckIn** contract on Base mainnet is `0x6800584b071A91a7156C0A1C6ee521E5F5Bb35cc` (see [`contracts/DEPLOYMENT.md`](contracts/DEPLOYMENT.md)).
+Copy [`web/.env.example`](web/.env.example) to `web/.env.local` and fill in builder code if needed. Production URL: **https://the-last-of-us-part-1.vercel.app**. Base App ID is set for `base:app_id` meta verification.
+
+The deployed **DailyCheckIn** contract on Base mainnet is `0x6800584b071A91a7156C0A1C6ee521E5F5Bb35cc` (see [`contracts/DEPLOYMENT.md`](contracts/DEPLOYMENT.md)).
 
 ## Base App
 
