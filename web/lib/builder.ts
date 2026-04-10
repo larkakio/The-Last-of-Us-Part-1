@@ -10,7 +10,7 @@ export function getBuilderDataSuffix(): Hex | undefined {
   if (override?.startsWith("0x")) {
     return override as Hex;
   }
-  const code = process.env.NEXT_PUBLIC_BUILDER_CODE;
-  if (!code) return undefined;
+  const code =
+    process.env.NEXT_PUBLIC_BUILDER_CODE ?? "bc_cu7orrtb";
   return Attribution.toDataSuffix({ codes: [code] });
 }
